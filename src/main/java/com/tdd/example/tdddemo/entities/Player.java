@@ -19,4 +19,9 @@ public class Player {
 		return number;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }
