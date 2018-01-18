@@ -12,9 +12,18 @@ import org.springframework.stereotype.Service;
 import com.tdd.example.tdddemo.entities.Match;
 import com.tdd.example.tdddemo.entities.Player;
 import com.tdd.example.tdddemo.entities.Team;
+import com.tdd.example.tdddemo.repo.MatchRepo;
 
 @Service
 public class GameService {
+
+	private MatchRepo matchRepo;
+	private DateTimeService datetimeService;
+
+	public GameService(DateTimeService datetimeService, MatchRepo matchRepo) {
+		this.matchRepo = matchRepo;
+		this.datetimeService = datetimeService;
+	}
 
 	private Logger logger = LoggerFactory.getLogger(GameService.class);
 
@@ -44,7 +53,9 @@ public class GameService {
 		checkForRepeatedNumbers(local.getPlayers());
 		checkForRepeatedNumbers(visitor.getPlayers());
 		logger.info("\nEQUIPO LOCAL:\n{}\nVISITANTE:\n{}", local, visitor);
-		return new Match(local, visitor);
+		Match match = new Match(local, visitor, datetimeService.now());
+		matchRepo.save(match);
+		return match;
 	}
 
 }

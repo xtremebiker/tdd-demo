@@ -1,10 +1,8 @@
 package com.tdd.example.tdddemo.entities;
 
-public class Match {
+import java.time.LocalDateTime;
 
-	private Team local;
-	private Team visitor;
-	private Score score = new Score(0, 0);
+public class Match {
 
 	public static class Score {
 		private int local = 0;
@@ -34,22 +32,43 @@ public class Match {
 
 	}
 
-	public Score getScore() {
-		return score;
-	}
+	private Team local;
+	private Team visitor;
+	private Score score = new Score(0, 0);
 
-	public Match(Team local, Team visitor) {
+	private LocalDateTime initDate;
+
+	private Long id;
+
+	public Match(Team local, Team visitor, LocalDateTime initDate) {
 		super();
 		this.local = local;
 		this.visitor = visitor;
+		this.initDate = initDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public LocalDateTime getInitDate() {
+		return initDate;
 	}
 
 	public Team getLocal() {
 		return local;
 	}
 
+	public Score getScore() {
+		return score;
+	}
+
 	public Team getVisitor() {
 		return visitor;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
